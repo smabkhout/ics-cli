@@ -31,6 +31,7 @@ public class ICSparser {
 
                 } else if (line.startsWith(endevent)) {
                     ++i; //on passe à l'evenement suivant
+                    
                 } else if (line.startsWith(summaryprefix)) {
                     String summary = line.substring(summaryprefix.length());
                 } else if (line.startsWith(dtstartprefix)) {

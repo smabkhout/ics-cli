@@ -55,9 +55,8 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event [Start date=" + dtstart + ", End date=" + dtend + ", location=" + location
+        return "Event [Summary=" + summary + ", Start date=" + dtstart + ", End date=" + dtend + ", location=" + location
                 + ", description=" + description + "]";
-                // to add summary
     }
     
 }

@@ -11,19 +11,20 @@ class Todos extends ICS{
     protected String dueDate;
     protected String status;    
     protected String priority;
-    protected String percent;
     
     Todos() {
         super();
         this.dueDate = "";
         this.progress = "";
         this.status = "";
+        this.priority = "";
     }
-    Todos (String summary, String location, String duedate, String progress, String status) {
+    Todos (String summary, String location, String duedate, String progress, String status, String priority) {
         super(summary, location);
         this.dueDate = duedate;
         this.progress = progress;
         this.status = status;
+        this.priority = priority;
     }
 
     public String getdueDate() {
@@ -38,9 +39,6 @@ class Todos extends ICS{
     public String getPriority() {
         return priority;
     }
-    public String getPercent() {
-        return percent;
-    }
 
     
     
@@ -49,16 +47,12 @@ class Todos extends ICS{
     }
     public void setStatus(String status) {
         this.status = status;
-    }
-  
+    }  
     public void setprogress(String progress) {
         this.progress = progress;
     }
     public void setPriority(String priority) {
         this.priority = priority;
-    }
-    public void setPercent(String percent) {
-        this.percent = percent;
     }
 
     @Override
@@ -76,7 +70,7 @@ class Todos extends ICS{
 
 
         return "Todos [\n" + Green + "Summary" + Reset + ": " + summary + Green + "\nDue date: " + Reset + dueTime + Green + "\nStatus: " + Reset + status + Green + "\nLocation: " + Reset + location
-                + "\nPriority" + Reset + ": " + priority + Green + "\nPercent" + Reset + ": " + percent + Green + "\n]";
+                + "\nPriority" + Reset + ": " + priority + "\nProgress: " + Reset + progress + "\n]";
     }
     
 }

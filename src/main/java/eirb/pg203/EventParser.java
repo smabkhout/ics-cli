@@ -6,16 +6,14 @@
         import java.util.List;
         import java.util.ArrayList;
 
-public class ICSparser {
-    String path;
+public class EventParser extends Parser {
     List<Event> events;
 
     public ICSparser(String path) {
-        this.path = path;
-        this.events = new ArrayList<>();
+        super(path);
     }
 
-    public List<Event> getEvents() {
+    public List<Event> getICS() {
         return events;
     }
 
@@ -53,33 +51,7 @@ public class ICSparser {
         }
 
     }
-    public void parse() {
-        
-        List<Integer> i = new ArrayList<>(); //indice curseur (à incrémenter après chaque event)
-        i.add(0);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
-            String line;
-            String currentLine = null;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith((" ")) || line.startsWith("\t")){
-                    currentLine += line.substring(1);
-                    continue;
-                }
-
-                if (currentLine != null){
-                    lineProcess(currentLine, i);
-                }               
-                currentLine = line;
-            }
-            if (currentLine != null){
-                lineProcess(currentLine, i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
 
 
 }

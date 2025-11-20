@@ -1,5 +1,9 @@
 package eirb.pg203;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Event {
     private String summary;
     private String dtstart;
@@ -55,8 +59,25 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event [Summary=" + summary + ", Start date=" + dtstart + ", End date=" + dtend + ", location=" + location
-                + ", description=" + description + "]";
+        String Green = "\033[32m";
+        String Reset = "\033[0m";
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+        Date startTime = null;
+        Date endTime = null;
+        try {
+            startTime = dateFormat.parse(dtstart);
+            endTime = dateFormat.parse(dtend);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        description = description.replace("\\n", "\n");
+
+
+        return "Event [\n" + Green + "Summary" + Reset + ": " + summary + Green + "\nStart date: " + Reset + startTime + Green + "\nEnd date: " + Reset + endTime + Green + "\nLocation: " + Reset + location
+                + Green + "\nDescription: " + Reset + description + "\n]";
     }
     
 }

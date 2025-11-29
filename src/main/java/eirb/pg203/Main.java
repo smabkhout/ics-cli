@@ -12,16 +12,16 @@ public class Main {
         // System.out.println(loadCalendarData(Path.of("src", "test", "resources", "i2.ics")));
         if (args.length < 2){
             System.out.println("Please provide a path to an ICS file as an argument as well as the type of the elements to be parsed.");
-            System.out.println("Example: ./gradlew run --args=\"src/test/resources/i2.ics events\"");
+            System.out.println("Example: ./gradlew run --args=\\\"./src/test/resources/i2.ics event\\\\");
             return;
         }
         String filePath = args[0];
         String type = args[1];
-        Parser<? extends ICS> parser = null;
+        Parser<? extends ICS> parser;
 
-        if (type.equalsIgnoreCase("events")) {
+        if (type.equalsIgnoreCase("event")) {
             parser = new EventParser(filePath);
-        } else if (type.equalsIgnoreCase("todos")) {
+        } else if (type.equalsIgnoreCase("todo")) {
             parser = new TodoParser(filePath);
         } else {
             System.out.println("Unknown type: " + type);

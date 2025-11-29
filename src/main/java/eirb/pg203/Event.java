@@ -1,8 +1,8 @@
 package eirb.pg203;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Event extends ICS{
 
@@ -17,7 +17,7 @@ public class Event extends ICS{
         this.description = "";
     }
 
-    Event (String summary, String location, String dtstart, String dtend, String description) {
+    Event(String summary, String location, String dtstart, String dtend, String description) {
         super(summary, location);
         this.dtstart = dtstart;
         this.dtend = dtend;
@@ -61,10 +61,15 @@ public class Event extends ICS{
 
 
         description = description.replace("\\n", "\n");
-
-
-        return "Event [\n" + Green + "Summary" + Reset + ": " + summary + Green + "\nStart date: " + Reset + startTime + Green + "\nEnd date: " + Reset + endTime + Green + "\nLocation: " + Reset + location
-                + Green + "\nDescription: " + Reset + description + "\n]";
+        
+        String chaine = "Event [\n" +
+               Green + "  Summary      : " + Reset + summary + "\n" +
+               Green + "  Start date  : " + Reset + startTime + "\n" +
+               Green + "  End date    : " + Reset + endTime + "\n" +
+               Green + "  Location  : " + Reset + location + "\n" +
+               Green + "  Description  : " + Reset + description + "\n" +
+               "]";
+        return chaine;
     }
     
 }

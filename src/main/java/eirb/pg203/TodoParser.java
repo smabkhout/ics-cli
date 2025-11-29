@@ -11,10 +11,10 @@ public class TodoParser extends Parser<Todos> {
         String begintodo = "BEGIN:VTODO";
         String endtodo = "END:VTODO";
         String summaryprefix = "SUMMARY:";
-        String dueDateprefix = "DUE;";
+        String dueDateprefix = "DUE;VALUE=DATE:";
         String statusprefix = "STATUS:";
         String locationprefix = "LOCATION:";
-        String progressprefix = "PRECENT-COMPLETE:";
+        String progressprefix = "PERCENT-COMPLETE:";
 
         if (line.equals(begintodo)) {
             Todos todo = new Todos();

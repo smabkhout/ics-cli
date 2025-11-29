@@ -1,8 +1,8 @@
 package eirb.pg203;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 class Todos extends ICS{
@@ -30,7 +30,7 @@ class Todos extends ICS{
     public String getdueDate() {
         return dueDate;
     }
-    public String getprogress() {
+    public String getProgress() {
         return progress;
     }
     public String getStatus() {
@@ -48,7 +48,7 @@ class Todos extends ICS{
     public void setStatus(String status) {
         this.status = status;
     }  
-    public void setprogress(String progress) {
+    public void setProgress(String progress) {
         this.progress = progress;
     }
     public void setPriority(String priority) {

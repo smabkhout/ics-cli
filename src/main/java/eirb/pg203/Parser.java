@@ -1,35 +1,50 @@
-class Parser{
-    String path;
-    List<? extends ICS> ICSs;
-    public Parser(string path){
+        package eirb.pg203;
+
+        import java.io.BufferedReader; // Pour lire le texte de manière optimisée
+        import java.io.FileReader;     // Pour lire un fichier caractère par caractère
+        import java.io.IOException;  // L'exception que la lecture de fichier peut lever
+        import java.util.ArrayList;
+        import java.util.List;
+
+
+abstract class Parser<T extends ICS>{
+    protected String path;
+    protected List<T> ICSs;
+    protected int currentCursor = 0;
+
+    public Parser(String path){
         this.path=path;
         this.ICSs= new ArrayList<>();
     }
-    List<? extends ICS> getICS(){
+
+    protected List<T> getICS(){
         return ICSs;
     }
+
+    protected abstract void lineProcess(String line);
     public void parse() {
         
-        List<Integer> i = new ArrayList<>(); //indice curseur (à incrémenter après chaque event)
-        i.add(0);
+        this.currentCursor = 0;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {
             String line;
             String currentLine = null;
 
             while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) continue;
+
                 if (line.startsWith((" ")) || line.startsWith("\t")){
-                    currentLine += line.substring(1);
+                    if (currentLine != null) currentLine += line.substring(1);
                     continue;
                 }
 
                 if (currentLine != null){
-                    lineProcess(currentLine, i);
+                    lineProcess(currentLine);
                 }               
                 currentLine = line;
             }
             if (currentLine != null){
-                lineProcess(currentLine, i);
+                lineProcess(currentLine);
             }
         } catch (IOException e) {
             e.printStackTrace();

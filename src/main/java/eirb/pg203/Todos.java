@@ -19,7 +19,7 @@ class Todos extends ICS{
         this.status = "";
         this.priority = "";
     }
-    Todos (String summary, String location, String duedate, String progress, String status, String priority) {
+    Todos(String summary, String location, String duedate, String progress, String status, String priority) {
         super(summary, location);
         this.dueDate = duedate;
         this.progress = progress;

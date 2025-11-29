@@ -17,7 +17,7 @@ abstract class Parser<T extends ICS>{
         this.ICSs= new ArrayList<>();
     }
 
-    protected List<T> getICS(){
+    protected List<T> getICSs(){
         return ICSs;
     }
 

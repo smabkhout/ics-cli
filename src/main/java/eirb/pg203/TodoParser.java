@@ -1,5 +1,7 @@
 package eirb.pg203;
 
+import java.util.List;
+
 public class TodoParser extends Parser<Todos> {
 
     public TodoParser(String path) {
@@ -45,13 +47,9 @@ public class TodoParser extends Parser<Todos> {
         this.ICSs.sort((a, b)->a.getdueDate().compareTo(b.getdueDate()));
     }
     
-    public void icsFilter(String opt){
+    public void icsFilter(List<String> options){
 
-        switch (opt) {
-            case "incomplete":
-                this.ICSs.removeIf((Todos T)-> ((T.getStatus().equals("COMPLETED"))));
-                break;
-            
+        switch (options.get(0)) {
             case "all":
                 this.ICSs.removeIf((Todos T) -> (false));
                 break;
@@ -68,7 +66,8 @@ public class TodoParser extends Parser<Todos> {
                 this.ICSs.removeIf((Todos T)-> (!(T.getStatus().equals("NEEDS-ACTION"))));
                 break;
         
-            default:
+            default: // par defaut on affiche les todos incomplet
+                this.ICSs.removeIf((Todos T)-> ((T.getStatus().equals("COMPLETED"))));
                 break;
         }
     }

@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 
 public class EventParser extends Parser<Event> {
 
@@ -49,16 +50,11 @@ public class EventParser extends Parser<Event> {
         this.ICSs.sort(( a,  b) -> a.getDtstart().compareTo(b.getDtstart()));
     }
 
-    public void icsFilter(String opt){
+    public void icsFilter(List<String> options){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        switch (opt) {
-            case "today":
-                String today = LocalDate.now().format(formatter);
-                this.ICSs.removeIf((Event E)-> (!(E.getDtstart().substring(0, 8).equals(today))));
-                break;
-            
+        switch (options.get(0)) {
             case "tomorrow":
                 String tomorrow = LocalDate.now().plusDays(1).format(formatter);
                 this.ICSs.removeIf((Event E)-> (!(E.getDtstart().substring(0, 8).equals(tomorrow))));
@@ -72,13 +68,30 @@ public class EventParser extends Parser<Event> {
                 this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(lastDay))>0));
                 break;
             
-                
-
-            default:
+            case "from":
+                String from = options.get(1);
+                this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(from))<0));
+                if (options.contains("to")){
+                    int i = options.indexOf("to");
+                    String to1 = options.get(i+1);
+                    this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(to1))>0));
+                }
+                break;
+            
+            case "to":
+                String to = options.get(1);
+                this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(to))>0));
+                if (options.contains("from")){
+                    int i = options.indexOf("from");
+                    String from1 = options.get(i+1);
+                    this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(from1))<0));
+                }
+                break;
+            
+            default: // par defaut on affiche les evenements d'aujourd'hui
+                String today = LocalDate.now().format(formatter);
+                this.ICSs.removeIf((Event E)-> (!(E.getDtstart().substring(0, 8).equals(today))));
                 break;
         }
-
-
-
     }
 }

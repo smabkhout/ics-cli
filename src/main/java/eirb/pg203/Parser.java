@@ -52,5 +52,5 @@ abstract class Parser<T extends ICS>{
     }
 
     public abstract void icssSort();
-    public abstract void icsFilter(String opt);
+    public abstract void icsFilter(List<String> options);
 }

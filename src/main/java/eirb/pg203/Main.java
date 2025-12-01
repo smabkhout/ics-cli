@@ -3,7 +3,9 @@ package eirb.pg203;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -17,27 +19,28 @@ public class Main {
         }
         String filePath = args[0];
         String type = args[1];
-        String option = null;
+        List<String> options = new ArrayList<>();
+        if (args.length >= 3){
+            options = Arrays.asList(args);
+            options = options.subList(2, args.length);
+        }
+        else {
+            options.add("no options");
+        }
         Parser<? extends ICS> parser;
 
         if (type.equalsIgnoreCase("event")) {
             parser = new EventParser(filePath);
-            option = "today";
         } else if (type.equalsIgnoreCase("todo")) {
             parser = new TodoParser(filePath);
-            option = "incomplete";
         } else {
             System.out.println("Unknown type: " + type);
             return;
         }
 
-        if (args.length==3){
-            option = args[2];
-        }
-
         parser.parse(); // remplissage de la liste des evenements du parser
         parser.icssSort(); //ordonner la liste des evenements par (dueDate ou dtStart)
-        parser.icsFilter(option); //filtrer la liste selon l'option passé
+        parser.icsFilter(options); //filtrer la liste selon l'option passé
         for (ICS ics : parser.getICSs()) { // affichage des evenements
             System.out.println("--------NEW " +type.toUpperCase() + "--------");
             System.out.println(ics);

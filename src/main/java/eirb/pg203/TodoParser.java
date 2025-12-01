@@ -40,4 +40,36 @@ public class TodoParser extends Parser<Todos> {
             }
         }
     }
+    
+    public void icssSort(){
+        this.ICSs.sort((a, b)->a.getdueDate().compareTo(b.getdueDate()));
+    }
+    
+    public void icsFilter(String opt){
+
+        switch (opt) {
+            case "incomplete":
+                this.ICSs.removeIf((Todos T)-> ((T.getStatus().equals("COMPLETED"))));
+                break;
+            
+            case "all":
+                this.ICSs.removeIf((Todos T) -> (false));
+                break;
+            
+            case "complete":
+                this.ICSs.removeIf((Todos T)-> (!(T.getStatus().equals("COMPLETED"))));
+                break;
+            
+            case "inprocess":
+                this.ICSs.removeIf((Todos T)-> (!(T.getStatus().equals("IN-PROCESS"))));
+                break;
+            
+            case "needsaction":
+                this.ICSs.removeIf((Todos T)-> (!(T.getStatus().equals("NEEDS-ACTION"))));
+                break;
+        
+            default:
+                break;
+        }
+    }
 }

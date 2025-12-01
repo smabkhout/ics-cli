@@ -50,4 +50,7 @@ abstract class Parser<T extends ICS>{
             e.printStackTrace();
         }
     }
+
+    public abstract void icssSort();
+    public abstract void icsFilter(String opt);
 }

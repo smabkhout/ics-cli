@@ -1,5 +1,10 @@
 package eirb.pg203;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+
 public class EventParser extends Parser<Event> {
 
     public EventParser(String path) {
@@ -40,4 +45,40 @@ public class EventParser extends Parser<Event> {
         }
     }
 
+    public void icssSort(){
+        this.ICSs.sort(( a,  b) -> a.getDtstart().compareTo(b.getDtstart()));
+    }
+
+    public void icsFilter(String opt){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        switch (opt) {
+            case "today":
+                String today = LocalDate.now().format(formatter);
+                this.ICSs.removeIf((Event E)-> (!(E.getDtstart().substring(0, 8).equals(today))));
+                break;
+            
+            case "tomorrow":
+                String tomorrow = LocalDate.now().plusDays(1).format(formatter);
+                this.ICSs.removeIf((Event E)-> (!(E.getDtstart().substring(0, 8).equals(tomorrow))));
+                break;
+                
+            case "week":
+                String firstDay = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).format(formatter);
+                String lastDay = LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).format(formatter);
+
+                this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(firstDay))<0));
+                this.ICSs.removeIf((Event E)-> ((E.getDtstart().substring(0, 8).compareTo(lastDay))>0));
+                break;
+            
+                
+
+            default:
+                break;
+        }
+
+
+
+    }
 }

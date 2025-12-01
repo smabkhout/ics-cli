@@ -17,18 +17,27 @@ public class Main {
         }
         String filePath = args[0];
         String type = args[1];
+        String option = null;
         Parser<? extends ICS> parser;
 
         if (type.equalsIgnoreCase("event")) {
             parser = new EventParser(filePath);
+            option = "today";
         } else if (type.equalsIgnoreCase("todo")) {
             parser = new TodoParser(filePath);
+            option = "incomplete";
         } else {
             System.out.println("Unknown type: " + type);
             return;
         }
 
+        if (args.length==3){
+            option = args[2];
+        }
+
         parser.parse(); // remplissage de la liste des evenements du parser
+        parser.icssSort(); //ordonner la liste des evenements par (dueDate ou dtStart)
+        parser.icsFilter(option); //filtrer la liste selon l'option passé
         for (ICS ics : parser.getICSs()) { // affichage des evenements
             System.out.println("--------NEW " +type.toUpperCase() + "--------");
             System.out.println(ics);

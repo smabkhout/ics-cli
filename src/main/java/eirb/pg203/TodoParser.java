@@ -43,10 +43,12 @@ public class TodoParser extends Parser<Todos> {
         }
     }
     
+    @Override
     public void icssSort(){
         this.ICSs.sort((a, b)->a.getdueDate().compareTo(b.getdueDate()));
     }
     
+    @Override
     public void icsFilter(List<String> options){
 
         switch (options.get(0)) {

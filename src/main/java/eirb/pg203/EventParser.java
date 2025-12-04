@@ -46,10 +46,12 @@ public class EventParser extends Parser<Event> {
         }
     }
 
+    @Override
     public void icssSort(){
         this.ICSs.sort(( a,  b) -> a.getDtstart().compareTo(b.getDtstart()));
     }
 
+    @Override
     public void icsFilter(List<String> options){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");

@@ -19,9 +19,9 @@ public class Main {
         }
         String filePath = args[0];
         List<String> options = new ArrayList<>();
-        if (args.length >= 3){
+        if (args.length >= 2){
             options = Arrays.asList(args);
-            options = options.subList(2, args.length);
+            options = options.subList(1, args.length);
         }
         else {
             options.add("no options");

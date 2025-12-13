@@ -147,6 +147,9 @@ public class Calendar {
             } else {
                 dateB = ((Todos) b).getDueDate();
             }
+            if (dateA == null) return 1;
+            if (dateB == null) return -1;
+            
             return dateA.compareTo(dateB);
         });
     }

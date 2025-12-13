@@ -29,9 +29,6 @@ public class Calendar {
         return items;
     }
 
-    private void fillOptionsTodos() {
-    }
-
     private void fillOptions() {
         //event options
         optionsEvents.put("today", args -> {

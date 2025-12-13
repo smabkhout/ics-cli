@@ -65,21 +65,11 @@ public class Calendar {
         });
 
         //todo options
-        optionsTodos.put("all", todo -> {
-            return false;
-        });
-        optionsTodos.put("complete", todo -> {
-            return todo.getStatus().equals("COMPLETED");
-        });
-        optionsTodos.put("inprocess", todo -> {
-            return todo.getStatus().equals("IN-PROCESS");
-        });
-        optionsTodos.put("needsaction", todo -> {
-            return todo.getStatus().equals("NEEDS-ACTION");
-        });
-        optionsTodos.put("incomplete", todo -> {
-            return !todo.getStatus().equals("COMPLETED");
-        });
+        optionsTodos.put("all", todo -> false );
+        optionsTodos.put("completed", todo -> !todo.getStatus().equals("COMPLETED"));
+        optionsTodos.put("inprocess", todo -> !todo.getStatus().equals("IN-PROCESS"));
+        optionsTodos.put("needsaction", todo -> !todo.getStatus().equals("NEEDS-ACTION"));
+        optionsTodos.put("incomplete", todo -> todo.getStatus().equals("COMPLETED"));
     }
 
     public void filterCalendar(List<String> options) {
@@ -144,18 +134,20 @@ public class Calendar {
         if (items.isEmpty()) {
             return;
         }
-        if (items.get(0) instanceof Event) {
-            items.sort((a, b) -> {
-                Event eventA = (Event) a;
-                Event eventB = (Event) b;
-                return eventA.getDtstart().compareTo(eventB.getDtstart());
-            });
-        } else if (items.get(0) instanceof Todos) {
-            items.sort((a, b) -> {
-                Todos todoA = (Todos) a;
-                Todos todoB = (Todos) b;
-                return todoA.getdueDate().compareTo(todoB.getdueDate());
-            });
-        }
+        items.sort((a, b) -> {
+            String dateA;
+            String dateB;
+            if (a instanceof Event) {
+                dateA = ((Event) a).getDtstart();
+            } else {
+                dateA = ((Todos) a).getDueDate();
+            }
+            if (b instanceof Event) {
+                dateB = ((Event) b).getDtstart();
+            } else {
+                dateB = ((Todos) b).getDueDate();
+            }
+            return dateA.compareTo(dateB);
+        });
     }
 }

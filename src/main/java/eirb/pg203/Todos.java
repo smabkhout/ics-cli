@@ -27,7 +27,7 @@ class Todos extends Entry {
         this.priority = priority;
     }
 
-    public String getdueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
@@ -83,7 +83,7 @@ class Todos extends Entry {
         if (locaString.isEmpty()) {
             locaString = "No specified location!";          
         }
-        
+
         String chaine = "Todo [\n" +
                Green + "  Task      : " + Reset + summary + "\n" +
                Green + "  Due Date  : " + Reset + due + "\n" +

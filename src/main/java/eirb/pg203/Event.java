@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Event extends ICS{
+public class Event extends Entry{
 
     protected String dtstart;
     protected String dtend;
@@ -59,14 +59,18 @@ public class Event extends ICS{
             e.printStackTrace();
         }
 
+        String locaString = location;
+        if (locaString.isEmpty()) {
+            locaString = "No specified location!";          
+        }
 
         description = description.replace("\\n", "\n");
-        
+
         String chaine = "Event [\n" +
                Green + "  Summary      : " + Reset + summary + "\n" +
                Green + "  Start date  : " + Reset + startTime + "\n" +
                Green + "  End date    : " + Reset + endTime + "\n" +
-               Green + "  Location  : " + Reset + location + "\n" +
+               Green + "  Location  : " + Reset + locaString + "\n" +
                Green + "  Description  : " + Reset + description + "\n" +
                "]";
         return chaine;

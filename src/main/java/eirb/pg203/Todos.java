@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class Todos extends ICS {
+class Todos extends Entry {
 
     protected String progress;
     protected String dueDate;
@@ -78,10 +78,12 @@ class Todos extends ICS {
                 e.printStackTrace();
             } 
         }
+
         String locaString = location;
         if (locaString.isEmpty()) {
             locaString = "No specified location!";          
         }
+        
         String chaine = "Todo [\n" +
                Green + "  Task      : " + Reset + summary + "\n" +
                Green + "  Due Date  : " + Reset + due + "\n" +

@@ -1,17 +1,17 @@
 package eirb.pg203;
 
 
-class ICS  {
+class Entry  {
 
     protected String summary;
     protected String location;
 
-    ICS(){
+    Entry(){
         summary = "";
         location = "";
     }
 
-    ICS(String summary, String location){
+    Entry(String summary, String location){
         this.summary = summary;
         this.location = location;
     }

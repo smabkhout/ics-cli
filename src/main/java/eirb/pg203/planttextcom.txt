@@ -1,0 +1,106 @@
+@startuml
+' Horizontal layout (Left to Right)
+left to right direction
+
+' STYLE CHANGES
+skinparam shadowing true
+skinparam DefaultFontSize 14
+
+' 1. Define the Abstract Parent Class
+abstract class Entry {
+  # String summary
+  # String location
+  + Entry()
+  + Entry(summary: String, location: String)
+  + getSummary(): String
+  + getLocation(): String
+  + setSummary(summary: String): void
+  + setLocation(location: String): void
+  {abstract} + getSortingDate(): String
+}
+
+' 2. Define the Concrete Classes
+class Todos {
+  # String progress
+  # String dueDate
+  # String status
+  # String priority
+  + Todos()
+  + Todos(summary: String, location: String, duedate: String, progress: String, status: String, priority: String)
+  + getSortingDate(): String
+  + getDueDate(): String
+  + getProgress(): String
+  + getStatus(): String
+  + getPriority(): String
+  + setDueDate(dDate: String): void
+  + setStatus(status: String): void
+  + setProgress(progress: String): void
+  + setPriority(priority: String): void
+  + toString(): String
+}
+
+class Event {
+  # String dtstart
+  # String dtend
+  # String description
+  + Event()
+  + Event(summary: String, location: String, dtstart: String, dtend: String, description: String)
+  + getSortingDate(): String
+  + getDtstart(): String
+  + getDtend(): String
+  + getDescription(): String
+  + setDtstart(dtstart: String): void
+  + setDtend(dtend: String): void
+  + setDescription(description: String): void
+  + toString(): String
+}
+
+' 3. Define Manager Classes
+class Calendar {
+  - List<Entry> items
+  - HashMap<String, Function> optionsEvents
+  - HashMap<String, Predicate> optionsTodos
+  + Calendar()
+  + addItem(item: Entry): void
+  + getItems(): List<Entry>
+  - fillOptions(): void
+  + filterCalendar(options: List<String>): void
+  + sortCalendar(): void
+}
+
+class Parser {
+  # String path
+  - Calendar calendar
+  # Entry currentItem
+  + Parser(path: String)
+  # getCalendar(): Calendar
+  # lineProcess(line: String): void
+  + parse(): void
+}
+
+class DatePair {
+  - String startDate
+  - String endDate
+  + DatePair(startDate: String, endDate: String)
+  + getStartDate(): String
+  + getEndDate(): String
+}
+
+' 4. Define Relationships
+
+' Inheritance
+Entry <|-- Todos
+Entry <|-- Event
+
+' Aggregation / Composition
+' Calendar contains a list of Entries
+Calendar "1" *-- "*" Entry 
+
+' Association
+' Parser creates and populates a Calendar
+Parser --> "1" Calendar
+
+' Dependency
+Calendar ..> DatePair : uses
+
+@enduml

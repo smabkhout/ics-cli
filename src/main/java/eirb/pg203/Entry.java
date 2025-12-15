@@ -7,7 +7,7 @@ class Entry  {
     protected String location;
     protected String uid;
     protected String dtstamp;
-    
+
 
     Entry(){
         summary = "";
@@ -37,6 +37,7 @@ class Entry  {
     public String getDtstamp() {
         return dtstamp;
     }
+
 
     public void setDtstamp(String dtstamp) {
         this.dtstamp = dtstamp;

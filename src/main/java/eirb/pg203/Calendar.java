@@ -44,7 +44,8 @@ public class Calendar {
             return pairWeek;
         });
         optionsEvents.put("from", args -> {
-            String fromDate = args.get(1);
+            int j = args.indexOf("from");
+            String fromDate = args.get(j+1);
             String toDate = null;
             if (args.contains("to")) {
                 int i = args.indexOf("to");
@@ -54,7 +55,8 @@ public class Calendar {
             return pairFrom;
         });
         optionsEvents.put("to", args -> {
-            String toDate = args.get(1);
+            int j = args.indexOf("to");
+            String toDate = args.get(j+1);
             String fromDate = null;
             if (args.contains("from")) {
                 int i = args.indexOf("from");
@@ -72,20 +74,9 @@ public class Calendar {
         optionsTodos.put("incomplete", todo -> todo.getStatus().equals("COMPLETED"));
     }
 
-    public void filterCalendar(List<String> options) {
-        if (optionsEvents.isEmpty()) {
-            fillOptions();
-        }
-        if (options.isEmpty()) {
-            DatePair today = optionsEvents.get("today").apply(options);
-            this.items.removeIf((Entry E) -> {
-                if (E instanceof Event) {
-                    Event event = (Event) E;
-                    return !(event.getDtstart().substring(0, 8).equals(today.getStartDate()));
-                }
-                return false;
-            });
-            Predicate<Todos> predicate = optionsTodos.get("incomplete");
+    private void todosFilter(String opt){
+
+        Predicate<Todos> predicate = optionsTodos.get(opt);
             this.items.removeIf((Entry E) -> {
                 if (E instanceof Todos) {
                     Todos todo = (Todos) E;
@@ -93,42 +84,64 @@ public class Calendar {
                 }
                 return false;
             });
-        } else {
-            for (String option : options) {
+    }
+
+    private void eventsFilter(String opt, List<String> options) {
+        DatePair datePair = optionsEvents.get(opt).apply(options);
+        if (datePair.getStartDate() != null) {
+            this.items.removeIf((Entry E) -> {
+                if (E instanceof Event) {
+                    Event event = (Event) E;
+                    return (event.getDtstart().substring(0, 8).compareTo(datePair.getStartDate()) < 0);
+                }
+                return false;
+            });
+        }
+        if (datePair.getEndDate() != null) {
+            this.items.removeIf((Entry E) -> {
+                if (E instanceof Event) {
+                    Event event = (Event) E;
+                    return (event.getDtstart().substring(0, 8).compareTo(datePair.getEndDate()) > 0);
+                }
+                return false;
+            });
+        }
+    }
+
+    public void filterCalendar(List<String> options) {
+        if (optionsEvents.isEmpty()) {
+            fillOptions();
+        }
+
+        // for default behaviour
+        boolean hasEventFilter = false;
+        boolean hasTodoFilter = false;
+
+        for (String opt : options) {
+            if (optionsEvents.containsKey(opt)) hasEventFilter = true;
+            if (optionsTodos.containsKey(opt)) hasTodoFilter = true;
+        }
+
+         if (!hasTodoFilter) {
+            todosFilter("incomplete");
+        }
+
+        if (!hasEventFilter) {
+            eventsFilter("today", options);
+        }    
+       
+
+
+        for (String option : options) {
                 if (optionsEvents.containsKey(option)) {
-                    DatePair datePair = optionsEvents.get(option).apply(options);
-                    if (datePair.getStartDate() != null) {
-                        this.items.removeIf((Entry E) -> {
-                            if (E instanceof Event) {
-                                Event event = (Event) E;
-                                return (event.getDtstart().substring(0, 8).compareTo(datePair.getStartDate()) < 0);
-                            }
-                            return false;
-                        });
-                    }
-                    if (datePair.getEndDate() != null) {
-                        this.items.removeIf((Entry E) -> {
-                            if (E instanceof Event) {
-                                Event event = (Event) E;
-                                return (event.getDtstart().substring(0, 8).compareTo(datePair.getEndDate()) > 0);
-                            }
-                            return false;
-                        });
-                    }
+                    eventsFilter(option, options);
                 } else if (optionsTodos.containsKey(option)) {
-                    Predicate<Todos> predicate = optionsTodos.get(option);
-                    this.items.removeIf((Entry E) -> {
-                        if (E instanceof Todos) {
-                            Todos todo = (Todos) E;
-                            return predicate.test(todo);
-                        }
-                        return false;
-                    });
+                    todosFilter(option);
                 }
             }
 
-        }
     }
+    
 
     public void sortCalendar() {
         if (items.isEmpty()) {

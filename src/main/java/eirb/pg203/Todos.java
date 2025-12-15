@@ -90,7 +90,7 @@ class Todos extends Entry {
                Green + "  Status    : " + Reset + status + "\n" +
                Green + "  Progress  : " + Reset + progress + "\n" +
                Green + "  Location  : " + Reset + locaString + "\n" +
-               "]";
+               "]\n";
         return chaine;
     }
 

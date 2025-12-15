@@ -72,7 +72,7 @@ public class Event extends Entry{
                Green + "  End date    : " + Reset + endTime + "\n" +
                Green + "  Location  : " + Reset + locaString + "\n" +
                Green + "  Description  : " + Reset + description + "\n" +
-               "]";
+               "]\n";
         return chaine;
     }
     

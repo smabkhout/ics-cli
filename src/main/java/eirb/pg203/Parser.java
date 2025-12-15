@@ -40,10 +40,8 @@ public class Parser {
 
         if (line.equals(beginevent)) {
             currentItem = new Event();
-            this.calendar.addItem(currentItem);
         } else if (line.equals(begintodo)) {
             currentItem = new Todos();
-            this.calendar.addItem(currentItem);
         }
 
         if (currentItem == null) {

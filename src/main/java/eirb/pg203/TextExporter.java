@@ -9,7 +9,7 @@ public class TextExporter implements Exporter {
         public void export(Calendar cal, Writer output) throws IOException{
                 List<Entry> items = cal.getItems();
                 for (Entry entry : items){
-                    output.write(entry.toString());
+                    output.write(entry.toString().replace("\033[32m", "").replace("\033[0m", ""));
                 }
         }
 }

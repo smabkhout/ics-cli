@@ -7,6 +7,7 @@ class Entry  {
     protected String location;
     protected String uid;
     protected String dtstamp;
+    
 
     Entry(){
         summary = "";

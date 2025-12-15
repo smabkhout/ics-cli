@@ -9,13 +9,14 @@ public class HtmlExporter implements Exporter {
 
     public void export(Calendar cal, Writer output) throws IOException{
         List<Entry> items = cal.getItems();
-        output.write("<html><body><ul>\n");
+
+        output.write("<!DOCTYPE html>\n<html>\n<body>\n<ul>\n");
         for (Entry entry : items) {
             output.write("<li>" +
              entry.toString().replace("\033[32m", "").replace("\033[0m", "").replace("\n", "<br>") 
             + "</li>\n");
         }
-        output.write("</ul></body></html>");
+        output.write("</ul>\n</body>\n</html>");
     }
     
 }

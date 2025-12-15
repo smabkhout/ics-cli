@@ -18,6 +18,7 @@ public class ExporterFactory {
         
         strategies.put("html", new HtmlExporter());
         strategies.put("text", new TextExporter());
+        strategies.put("ics", new IcsExporter());
     }
 
     private Exporter getExporter(String opt) {

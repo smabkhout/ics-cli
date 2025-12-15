@@ -37,6 +37,8 @@ public class Parser {
         //common prefixes
         String summaryprefix = "SUMMARY:";
         String locationprefix = "LOCATION:";
+        String uidprefix = "UID:";
+        String dtstampprefix = "DTSTAMP:";
 
         if (line.equals(beginevent)) {
             currentItem = new Event();
@@ -60,7 +62,13 @@ public class Parser {
         } else if (line.startsWith(locationprefix)) {
             String location = line.substring(locationprefix.length());
             currentItem.setLocation(location);
-        }
+        } else if (line.startsWith(uidprefix)) {
+            String uid = line.substring(uidprefix.length());
+            currentItem.setUID(uid);
+        } else if (line.startsWith(dtstampprefix)) {
+            String dtstamp = line.substring(dtstampprefix.length());
+            currentItem.setDtstamp(dtstamp);
+        } 
 
         if (currentItem instanceof Event) {
             if (line.startsWith(dtstartprefix)) {

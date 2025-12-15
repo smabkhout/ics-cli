@@ -19,8 +19,8 @@ class Todos extends Entry {
         this.priority = "";
     }
 
-    Todos(String summary, String location, String duedate, String progress, String status, String priority) {
-        super(summary, location);
+    Todos(String summary, String location, String duedate, String progress, String status, String priority, String uid, String dtstamp) {
+        super(summary, location, uid, dtstamp);
         this.dueDate = duedate;
         this.progress = progress;
         this.status = status;

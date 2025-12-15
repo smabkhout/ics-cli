@@ -5,15 +5,20 @@ class Entry  {
 
     protected String summary;
     protected String location;
+    protected String uid;
+    protected String dtstamp;
 
     Entry(){
         summary = "";
         location = "";
+        uid ="";
+        dtstamp="";
     }
 
-    Entry(String summary, String location){
+    Entry(String summary, String location, String uid, String dtstamp){
         this.summary = summary;
         this.location = location;
+        this.dtstamp=dtstamp;
     }
 
     public String getSummary() {
@@ -21,6 +26,22 @@ class Entry  {
     }
     public String getLocation() {
         return location;
+    }
+
+    public String getUID() {
+        return uid;
+    }
+
+    public String getDtstamp() {
+        return dtstamp;
+    }
+
+    public void setDtstamp(String dtstamp) {
+        this.dtstamp = dtstamp;
+    }
+
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
     public void setSummary(String summary) {

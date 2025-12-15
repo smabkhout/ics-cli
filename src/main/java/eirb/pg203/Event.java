@@ -17,8 +17,8 @@ public class Event extends Entry{
         this.description = "";
     }
 
-    Event(String summary, String location, String dtstart, String dtend, String description) {
-        super(summary, location);
+    Event(String summary, String location, String dtstart, String dtend, String description, String uid, String dtstamp) {
+        super(summary, location, uid, dtstamp);
         this.dtstart = dtstart;
         this.dtend = dtend;
         this.description = description;

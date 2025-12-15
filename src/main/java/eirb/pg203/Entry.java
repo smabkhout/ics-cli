@@ -19,6 +19,7 @@ class Entry  {
         this.summary = summary;
         this.location = location;
         this.dtstamp=dtstamp;
+        this.uid=uid;
     }
 
     public String getSummary() {

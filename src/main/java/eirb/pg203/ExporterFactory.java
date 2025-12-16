@@ -21,7 +21,7 @@ public class ExporterFactory {
         strategies.put("-ics", new ICSExporter());
     }
     //retourne le type d'exporter convenable à opt
-    private Exporter getExporter(String opt) {
+    public Exporter getExporter(String opt) {
         if (strategies.containsKey(opt)) {
             return strategies.get(opt);
         } 

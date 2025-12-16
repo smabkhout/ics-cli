@@ -94,7 +94,7 @@ public class Parser {
             }
         }
     }
-
+    //fonction pricipale utilisant lineProcess()
     public void parse() {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(this.path))) {

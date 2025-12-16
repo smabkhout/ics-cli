@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-public class IcsExporter implements Exporter {
+public class ICSExporter implements Exporter {
     @Override
     public void export(Calendar cal, Writer output) throws IOException{
         List<Entry> items = cal.getItems();

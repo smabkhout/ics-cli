@@ -31,35 +31,35 @@ public class Calendar {
 
     private void fillOptions() {
         //event options
-        optionsEvents.put("today", args -> {
+        optionsEvents.put("-today", args -> {
             DatePair pairToday = new DatePair(LocalDate.now().format(formatter), LocalDate.now().format(formatter));
             return pairToday;
         });
-        optionsEvents.put("tomorrow", args -> {
+        optionsEvents.put("-tomorrow", args -> {
             DatePair pairTomorrow = new DatePair(LocalDate.now().plusDays(1).format(formatter), LocalDate.now().plusDays(1).format(formatter));
             return pairTomorrow;
         });
-        optionsEvents.put("week", args -> {
+        optionsEvents.put("-week", args -> {
             DatePair pairWeek = new DatePair(LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).format(formatter), LocalDate.now().with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).format(formatter));
             return pairWeek;
         });
-        optionsEvents.put("from", args -> {
-            int j = args.indexOf("from");
+        optionsEvents.put("-from", args -> {
+            int j = args.indexOf("-from");
             String fromDate = args.get(j+1);
             String toDate = null;
-            if (args.contains("to")) {
-                int i = args.indexOf("to");
+            if (args.contains("-to")) {
+                int i = args.indexOf("-to");
                 toDate = args.get(i + 1);
             }
             DatePair pairFrom = new DatePair(fromDate, toDate);
             return pairFrom;
         });
-        optionsEvents.put("to", args -> {
-            int j = args.indexOf("to");
+        optionsEvents.put("-to", args -> {
+            int j = args.indexOf("-to");
             String toDate = args.get(j+1);
             String fromDate = null;
-            if (args.contains("from")) {
-                int i = args.indexOf("from");
+            if (args.contains("-from")) {
+                int i = args.indexOf("-from");
                 fromDate = args.get(i + 1);
             }
             DatePair pairTo = new DatePair(fromDate, toDate);
@@ -67,11 +67,11 @@ public class Calendar {
         });
 
         //todo options
-        optionsTodos.put("all", todo -> false );
-        optionsTodos.put("completed", todo -> !todo.getStatus().equals("COMPLETED"));
-        optionsTodos.put("inprocess", todo -> !todo.getStatus().equals("IN-PROCESS"));
-        optionsTodos.put("needsaction", todo -> !todo.getStatus().equals("NEEDS-ACTION"));
-        optionsTodos.put("incomplete", todo -> todo.getStatus().equals("COMPLETED"));
+        optionsTodos.put("-all", todo -> false );
+        optionsTodos.put("-completed", todo -> !todo.getStatus().equals("COMPLETED"));
+        optionsTodos.put("-inprocess", todo -> !todo.getStatus().equals("IN-PROCESS"));
+        optionsTodos.put("-needsaction", todo -> !todo.getStatus().equals("NEEDS-ACTION"));
+        optionsTodos.put("-incomplete", todo -> todo.getStatus().equals("COMPLETED"));
     }
 
     private void todosFilter(String opt){
@@ -123,11 +123,11 @@ public class Calendar {
         }
 
          if (!hasTodoFilter) {
-            todosFilter("incomplete");
+            todosFilter("-incomplete");
         }
 
         if (!hasEventFilter) {
-            eventsFilter("today", options);
+            eventsFilter("-today", options);
         }    
        
 

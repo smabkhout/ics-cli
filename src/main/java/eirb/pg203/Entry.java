@@ -18,6 +18,7 @@ class Entry  {
     Entry(String summary, String location, String uid, String dtstamp){
         this.summary = summary;
         this.location = location;
+        this.uid = uid;
         this.dtstamp=dtstamp;
     }
 

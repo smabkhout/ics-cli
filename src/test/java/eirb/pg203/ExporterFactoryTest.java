@@ -10,7 +10,7 @@ import java.io.StringWriter;
 
 public class ExporterFactoryTest {
 
-    private ExporterFactory exporterFactory = new ExporterFactory();
+    private ExporterFactory exporterFactory;
 
     @BeforeEach
     public void setUp() {

@@ -30,6 +30,7 @@ public class Calendar {
     }
 
     private void fillOptions() {
+        
         //event options
         optionsEvents.put("-today", args -> {
             DatePair pairToday = new DatePair(LocalDate.now().format(formatter), LocalDate.now().format(formatter));
@@ -111,6 +112,12 @@ public class Calendar {
     public void filterCalendar(List<String> options) {
         if (optionsEvents.isEmpty()) {
             fillOptions();
+        }
+
+        if (options.contains("event")) {
+            this.items.removeIf(E -> !(E instanceof Event));
+        } else if (options.contains("todos")) {
+            this.items.removeIf(E -> !(E instanceof Todos));
         }
 
         // for default behaviour

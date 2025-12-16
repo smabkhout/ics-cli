@@ -1,10 +1,5 @@
 # Document de design
 
-Ceci est le document de template pour décrire l'architecture de votre programme. Vous pouvez le modifier à votre guise, mais assurez-vous de répondre à toutes les questions posées.
-***Suivant certaines architectures, certaines des questions peuvent ne pas être pertinentes. Dans ce cas, vous pouvez les ignorer.***
-Vous pouvez utiliser autant de diagrammes que vous le souhaitez pour expliquer votre architecture.
-Nous vous conseillons d'utiliser le logiciel PlantUML pour générer vos diagrammes.
-
 ## Schéma général
 
 Notre programme de gestion et d'export de calendriers ICS (iCalendar) structurée selon une **architecture orientée objet** se compose de **5 composants majeurs** qui interagissent de manière découplée :

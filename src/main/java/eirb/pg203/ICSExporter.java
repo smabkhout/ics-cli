@@ -27,14 +27,16 @@ public class ICSExporter implements Exporter {
     }
     //ecrire les events
     private void writeEvent(Event event, Writer output) throws IOException{
-        output.write("BEGIN:VEVENT\r\n");    
+        output.write("BEGIN:VEVENT\r\n");
+
         writeProperly(output, "DTSTAMP", event.getDtstamp());
         writeProperly(output, "DTSTART", event.getDtstart());
         writeProperly(output, "DTEND", event.getDtend());
         writeProperly(output, "SUMMARY", event.getSummary());
         writeProperly(output, "LOCATION", event.getLocation());
         writeProperly(output, "DESCRIPTION", event.getDescription());
-        writeProperly(output, "UID", event.getUID());        
+        writeProperly(output, "UID", event.getUID());
+           
         output.write("END:VEVENT\r\n");
     }
 

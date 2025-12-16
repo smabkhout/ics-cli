@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Args: " + Arrays.toString(args));
         // arguments manquants
         if (args.length < 1){
@@ -29,6 +29,10 @@ public class Main {
         calendar.filterCalendar(options); //filtrer selon options
 
         ExporterFactory factory = new ExporterFactory();
-        factory.outputHandler(options, calendar);    //generer l'output convenable
+        try {
+            factory.outputHandler(options, calendar);    //generer l'output convenable
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'écriture du fichier : " + e.getMessage());
+        }
     }
 }

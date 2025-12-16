@@ -1,71 +1,37 @@
 @startuml
-' Horizontal layout (Left to Right)
-left to right direction
-
-' STYLE CHANGES
 skinparam shadowing true
-skinparam DefaultFontSize 14
 
-' 1. Define the Abstract Parent Class
+' ===== CLASSES PRINCIPALES =====
+
 abstract class Entry {
-  # String summary
-  # String location
-  + Entry()
-  + Entry(summary: String, location: String)
-  + getSummary(): String
-  + getLocation(): String
-  + setSummary(summary: String): void
-  + setLocation(location: String): void
-  {abstract} + getSortingDate(): String
-}
-
-' 2. Define the Concrete Classes
-class Todos {
-  # String progress
-  # String dueDate
-  # String status
-  # String priority
-  + Todos()
-  + Todos(summary: String, location: String, duedate: String, progress: String, status: String, priority: String)
-  + getSortingDate(): String
-  + getDueDate(): String
-  + getProgress(): String
-  + getStatus(): String
-  + getPriority(): String
-  + setDueDate(dDate: String): void
-  + setStatus(status: String): void
-  + setProgress(progress: String): void
-  + setPriority(priority: String): void
-  + toString(): String
 }
 
 class Event {
-  # String dtstart
-  # String dtend
-  # String description
-  + Event()
-  + Event(summary: String, location: String, dtstart: String, dtend: String, description: String)
-  + getSortingDate(): String
-  + getDtstart(): String
-  + getDtend(): String
-  + getDescription(): String
-  + setDtstart(dtstart: String): void
-  + setDtend(dtend: String): void
-  + setDescription(description: String): void
-  + toString(): String
 }
 
-' 3. Define Manager Classes
+class Todos {
+}
+
 class Calendar {
   - List<Entry> items
-  - HashMap<String, Function> optionsEvents
-  - HashMap<String, Predicate> optionsTodos
-  + Calendar()
-  + addItem(item: Entry): void
-  + getItems(): List<Entry>
-  - fillOptions(): void
-  + filterCalendar(options: List<String>): void
-  + sortCalendar(): void
+  {static} - HashMap<String, Function<List<String>, DatePair>> optionsEvents
+  {static} - HashMap<String, Predicate<Todos>> optionsTodos
+  {static} - DateTimeFormatter formatter
+  + void addItem(item: Entry)
+  + List<Entry> getItems()
+  + void filterCalendar(options: List<String>)
+  + void sortCalendar()
+  - void fillOptions()
+  - void eventsFilter(option: String, options: List<String>)
+  - void todosFilter(option: String)
+}
+
+class DatePair {
+  - String startDate
+  - String endDate
+  + DatePair(dtstart: String, dtend: String)
+  + String getStartDate()
+  + String getEndDate()
 }
 
 class Parser {
@@ -77,30 +43,59 @@ class Parser {
   # lineProcess(line: String): void
   + parse(): void
 }
-
-class DatePair {
-  - String startDate
-  - String endDate
-  + DatePair(startDate: String, endDate: String)
-  + getStartDate(): String
-  + getEndDate(): String
+interface Exporter <<interface>> {
+  + export(cal: Calendar, output: Writer): void
 }
 
-' 4. Define Relationships
+class TextExporter {
+  + export(cal: Calendar, output: Writer): void
+}
 
-' Inheritance
-Entry <|-- Todos
+class HtmlExporter {
+  + export(cal: Calendar, output: Writer): void
+}
+
+class IcsExporter {
+  + export(cal: Calendar, output: Writer): void
+  - writeEvent(event: Event, output: Writer): void
+  - writeTodo(todo: Todos, output: Writer): void
+  - writeProperly(output: Writer, key: String, value: String): void
+}
+
+
+class ExporterFactory {
+  - Map<String, Exporter> strategies
+  + ExporterFactory()
+  + outputHandler(options: List<String>, cal: Calendar): void
+  - getExporter(opt: String): Exporter
+}
+
+
+' relations
+
 Entry <|-- Event
+Entry <|-- Todos
 
-' Aggregation / Composition
-' Calendar contains a list of Entries
-Calendar "1" *-- "*" Entry 
+Calendar "1" *-- "*" Entry
+Calendar ..> DatePair : utilise
 
-' Association
-' Parser creates and populates a Calendar
-Parser --> "1" Calendar
+Parser "1"*--"1" Calendar
 
-' Dependency
-Calendar ..> DatePair : uses
+Exporter <|-- TextExporter
+Exporter <|-- HtmlExporter
+Exporter <|-- IcsExporter
+Exporter ..> Calendar : utilise
 
+
+ExporterFactory "1"*--"1" Exporter : html
+ExporterFactory "1"*--"1" Exporter : text
+ExporterFactory "1"*--"1" Exporter : ics
+ExporterFactory ..> Calendar : utilise
+
+
+
+note bottom of Calendar
+  Utilise des Function<List, DatePair>
+  et Predicate<Todos> pour le filtrage
+end note
 @enduml

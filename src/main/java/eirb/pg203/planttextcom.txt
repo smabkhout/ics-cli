@@ -55,7 +55,7 @@ class HtmlExporter {
   + export(cal: Calendar, output: Writer): void
 }
 
-class IcsExporter {
+class ICSExporter {
   + export(cal: Calendar, output: Writer): void
   - writeEvent(event: Event, output: Writer): void
   - writeTodo(todo: Todos, output: Writer): void
@@ -83,7 +83,7 @@ Parser "1"*--"1" Calendar
 
 Exporter <|-- TextExporter
 Exporter <|-- HtmlExporter
-Exporter <|-- IcsExporter
+Exporter <|-- ICSExporter
 Exporter ..> Calendar : utilise
 
 

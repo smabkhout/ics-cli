@@ -8,6 +8,7 @@ class Entry  {
     protected String uid;
     protected String dtstamp;
 
+
     Entry(){
         summary = "";
         location = "";
@@ -20,6 +21,7 @@ class Entry  {
         this.location = location;
         this.uid = uid;
         this.dtstamp=dtstamp;
+        this.uid=uid;
     }
 
     public String getSummary() {
@@ -36,6 +38,7 @@ class Entry  {
     public String getDtstamp() {
         return dtstamp;
     }
+
 
     public void setDtstamp(String dtstamp) {
         this.dtstamp = dtstamp;

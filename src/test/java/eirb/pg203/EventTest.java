@@ -13,6 +13,7 @@ public class EventTest {
         Assertions.assertEquals("", event.getDtend());
         Assertions.assertEquals("", event.getDescription());
         Assertions.assertEquals("", event.getSummary());
+        Assertions.assertEquals("", event.getDtstamp());
         Assertions.assertEquals("", event.getLocation());
     }
     @Test
@@ -43,10 +44,12 @@ public class EventTest {
         event.setDtstart("20050318T000000");
         event.setDtend("20250318T000000");
         event.setDescription("Ma description des descriptions");
-        
+        event.setDtstamp("20230901T120000");
+
         Assertions.assertEquals("20050318T000000", event.getDtstart());
         Assertions.assertEquals("20250318T000000", event.getDtend());
         Assertions.assertEquals("Ma description des descriptions", event.getDescription());
+        Assertions.assertEquals("20230901T120000", event.getDtstamp());
     }
 
     @Test

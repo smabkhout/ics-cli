@@ -9,7 +9,7 @@ import java.io.StringWriter;
 public class ExporterTest {
 
     @Test
-    public void testExportText() throws IOException {
+    public void testTextExporter() throws IOException {
         Calendar cal = new Calendar();
         Event e = new Event();
         e.setSummary("Soutenance POO");
@@ -26,7 +26,7 @@ public class ExporterTest {
     }
 
     @Test
-    public void testExportHtml() throws IOException {
+    public void testHtmlExporter() throws IOException {
         Calendar cal = new Calendar();
         Event e = new Event();
         e.setSummary("Soutennce POO");
@@ -47,7 +47,7 @@ public class ExporterTest {
     }
 
     @Test
-    public void testExportIcsStructure() throws IOException {
+    public void testICSExporter() throws IOException {
         Calendar cal = new Calendar();
         Event e = new Event();
         e.setSummary("TestICS");

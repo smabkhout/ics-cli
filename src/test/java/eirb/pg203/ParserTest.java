@@ -20,6 +20,8 @@ public class ParserTest {
                          "SUMMARY:Reunion tres tres Importante\n" +
                          "LOCATION:SalleSerieuse\n" +
                          "DTSTART:20261020T100000\n" +
+                         "DTEND:20261020T120000\n" +
+                         "DTSTAMP:20240601T080000\n" +
                          "UID:uid-12345\n" +
                          "END:VEVENT\n" +
                          "END:VCALENDAR";
@@ -48,6 +50,8 @@ public class ParserTest {
                          "SUMMARY:Faire a manger\n" +
                          "STATUS:NEEDS-ACTION\n" +
                          "DUE;VALUE=DATE:20051231\n" +
+                         "PERCENT-COMPLETE:0\n" +
+                         "\n" +
                          "END:VTODO\n" +
                          "END:VCALENDAR";
         Files.writeString(icsFile, content);

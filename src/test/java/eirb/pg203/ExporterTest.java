@@ -63,6 +63,12 @@ public class ExporterTest {
         e.setDescription(longDescription);
         cal.addItem(e);
 
+        Todos t = new Todos();
+        t.setSummary("TestTodo");
+        t.setDueDate("20240201");
+        t.setDtstamp("20231231T120000");
+        cal.addItem(t);
+
         StringWriter tmpWriter = new StringWriter();
         ICSExporter exporter = new ICSExporter();
 
@@ -74,6 +80,10 @@ public class ExporterTest {
         Assertions.assertTrue(output.contains("SUMMARY:TestICS"));
         Assertions.assertTrue(output.contains("DTSTART:20240101"));
         Assertions.assertTrue(output.contains("DESCRIPTION:This is a very long description that"));
+        Assertions.assertTrue(output.contains("BEGIN:VTODO"));
+        Assertions.assertTrue(output.contains("SUMMARY:TestTodo"));
+        Assertions.assertTrue(output.contains("DUE;VALUE=DATE:20240201"));
+        Assertions.assertTrue(output.contains("DTSTAMP:20231231T120000"));
         Assertions.assertTrue(output.contains("END:VEVENT"));
         Assertions.assertTrue(output.endsWith("END:VCALENDAR\r\n"));
     }

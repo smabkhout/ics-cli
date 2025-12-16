@@ -46,7 +46,8 @@ public class ExporterFactory {
         for (String opt: options){
             Exporter tmp = this.getExporter(opt);
             if (tmp!=null){
-            selectedExporter = tmp;
+                selectedExporter = tmp;
+                break;
             }
         }
 

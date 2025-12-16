@@ -114,7 +114,7 @@ public class Calendar {
             fillOptions();
         }
 
-        if (options.contains("event")) {
+        if (options.contains("events")) {
             this.items.removeIf(E -> !(E instanceof Event));
         } else if (options.contains("todos")) {
             this.items.removeIf(E -> !(E instanceof Todos));

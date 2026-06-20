@@ -1,15 +1,3 @@
----
-documentclass: book
-papersize: a4
-fontsize: 10pt
-header-includes: |
-    \usepackage{hyperref}
-    \hypersetup{
-        colorlinks = true,
-        linkbordercolor = {pink},
-    }
----
-
 # Projet de PG203
 
 Ce starter kit vous permet de démarrer un projet d'application en
